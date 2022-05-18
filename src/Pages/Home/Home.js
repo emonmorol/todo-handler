@@ -12,7 +12,7 @@ const Home = () => {
     isLoading,
     refetch,
   } = useQuery(["todoItmes", user?.email], () =>
-    fetch(`http://localhost:5000/todoList/${user?.email}`, {
+    fetch(`https://todo-handlar.herokuapp.com/todoList/${user?.email}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -22,7 +22,7 @@ const Home = () => {
   );
   console.log(todos);
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <p className="loading">Loading...</p>;
   }
 
   return (
@@ -30,7 +30,7 @@ const Home = () => {
       <h2 className="text-center text-4xl text-primary font-bold my-5">
         You Can See Only Your TODO List
       </h2>
-      <div className="p-10 flex flex-row gap-5">
+      <div className="p-10 flex flex-col lg:flex-row gap-5">
         <AddToList refetch={refetch} />
         <ToDoList todos={todos} refetch={refetch} />
       </div>

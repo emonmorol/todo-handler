@@ -18,7 +18,7 @@ const ToDoListRow = ({ todo, refetch, index }) => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        fetch(`http://localhost:5000/todoList/${id}`, {
+        fetch(`https://todo-handlar.herokuapp.com/todoList/${id}`, {
           method: "DELETE",
           headers: {
             authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -39,7 +39,7 @@ const ToDoListRow = ({ todo, refetch, index }) => {
   };
   const handleCompletation = (id) => {
     setComplete(true);
-    fetch(`http://localhost:5000/todoList/${id}`, {
+    fetch(`https://todo-handlar.herokuapp.com/todoList/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const ToDoListRow = ({ todo, refetch, index }) => {
 
   return (
     <tr class="hover">
-      <th className={`${isComplete && "line-through"}`}>{index + 1}</th>
+      <td className={`${isComplete && "line-through"}`}>{index + 1}</td>
       <td className={`${isComplete && "line-through"}`}>{title}</td>
       <td className={`${isComplete && "line-through"}`}>{description}</td>
       <td>

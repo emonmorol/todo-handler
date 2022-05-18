@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
+import swal from "sweetalert";
 import auth from "../../firebase.init";
 
 const AddToList = ({ refetch }) => {
@@ -20,7 +21,8 @@ const AddToList = ({ refetch }) => {
       description: data.description,
       isComplete: false,
     };
-    fetch("http://localhost:5000/todoList", {
+    swal("Yeah!", "Successfully Added ToDo List!", "success");
+    fetch("https://todo-handlar.herokuapp.com/todoList", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +39,7 @@ const AddToList = ({ refetch }) => {
   };
 
   return (
-    <div className="w-1/4 border-2 p-10 rounded-2xl shadow-md h-96">
+    <div className="w-full lg:w-1/4 border-2 p-10 rounded-2xl shadow-md h-96">
       <h2 className="text-3xl text-primary text-center font-bold uppercase mb-5">
         Add To Your List
       </h2>

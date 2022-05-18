@@ -27,7 +27,7 @@ const Login = () => {
 
   useEffect(() => {
     console.log(user);
-    fetch(`http://localhost:5000/user/${user?.email}`, {
+    fetch(`https://todo-handlar.herokuapp.com/user/${user?.email}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,7 +42,7 @@ const Login = () => {
   }, [user, token]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p className="loading">Loading...</p>;
   }
 
   const onSubmit = (data) => {

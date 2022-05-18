@@ -27,7 +27,7 @@ const SignUp = () => {
   }, [user, from, navigate]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/user/${user?.user?.email}`, {
+    fetch(`https://todo-handlar.herokuapp.com/user/${user?.user?.email}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,7 +42,7 @@ const SignUp = () => {
   }, [user, token]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p className="loading">Loading...</p>;
   }
 
   const onSubmit = (data) => {

@@ -3,7 +3,7 @@ import ToDoListRow from "./ToDoListRow";
 
 const ToDoList = ({ todos, refetch }) => {
   return (
-    <div class="overflow-x-auto  w-3/4">
+    <div class="overflow-x-auto w-full p-5 lg:w-3/4">
       <table class="table w-full">
         <thead>
           <tr>
