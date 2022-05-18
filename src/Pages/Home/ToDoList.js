@@ -14,8 +14,13 @@ const ToDoList = ({ todos, refetch }) => {
           </tr>
         </thead>
         <tbody>
-          {todos?.map((todo) => (
-            <ToDoListRow key={todo._id} todo={todo} refetch={refetch} />
+          {todos?.map((todo, index) => (
+            <ToDoListRow
+              key={todo._id}
+              index={index}
+              todo={todo}
+              refetch={refetch}
+            />
           ))}
         </tbody>
       </table>

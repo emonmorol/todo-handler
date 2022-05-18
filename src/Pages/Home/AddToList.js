@@ -9,8 +9,12 @@ const AddToList = ({ refetch }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (todoItem) => {
-    console.log(todoItem);
+  const onSubmit = (data) => {
+    const todoItem = {
+      title: data.title,
+      description: data.description,
+      isComplete: false,
+    };
     fetch("http://localhost:5000/todoList", {
       method: "POST",
       headers: {
