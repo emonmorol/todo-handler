@@ -44,6 +44,10 @@ const AddToList = ({ refetch }) => {
                 value: true,
                 message: "This Field Is Required",
               },
+              maxLength: {
+                value: 30,
+                message: "Title Can't be More Than 30 character",
+              },
             })}
             placeholder="TODO Title here"
             class="input input-bordered input-primary w-full"
@@ -57,6 +61,10 @@ const AddToList = ({ refetch }) => {
               required: {
                 value: true,
                 message: "This Field Is Required",
+              },
+              maxLength: {
+                value: 80,
+                message: "Description Can't be More Than 80 character",
               },
             })}
             placeholder="TODO description here"

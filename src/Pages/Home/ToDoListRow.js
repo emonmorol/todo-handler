@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import swal from "sweetalert";
 
 const ToDoListRow = ({ todo, refetch, index }) => {
   const { title, description, _id, isComplete } = todo;
@@ -9,19 +10,43 @@ const ToDoListRow = ({ todo, refetch, index }) => {
   }, [isComplete]);
 
   const handleDelete = (id) => {
-    const proceed = window.confirm("are you sure");
-    if (proceed) {
-      fetch(`http://localhost:5000/todoList/${id}`, {
-        method: "DELETE",
-      })
-        .then((res) => res.json())
-        .then((result) => {
-          if (result?.acknowledged) {
-            refetch();
-            console.log(result);
-          }
-        });
-    }
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        fetch(`http://localhost:5000/todoList/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            if (result?.acknowledged) {
+              refetch();
+              console.log(result);
+              swal("Your To-Do Item has been deleted!", {
+                icon: "success",
+              });
+            }
+          });
+      }
+    });
+
+    // const proceed = window.confirm("are you sure");
+    // if (proceed) {
+    //   fetch(`http://localhost:5000/todoList/${id}`, {
+    //     method: "DELETE",
+    //   })
+    //     .then((res) => res.json())
+    //     .then((result) => {
+    //       if (result?.acknowledged) {
+    //         refetch();
+    //         console.log(result);
+    //       }
+    //     });
+    // }
   };
   const handleCompletation = (id) => {
     setComplete(true);
@@ -37,6 +62,11 @@ const ToDoListRow = ({ todo, refetch, index }) => {
         if (result?.acknowledged) {
           refetch();
           console.log(result);
+          swal(
+            "Good job!",
+            "You've Completed One work From To-Do List",
+            "success"
+          );
           setComplete(true);
         }
       });
