@@ -44,9 +44,9 @@ const ToDoListRow = ({ todo, refetch, index }) => {
 
   return (
     <tr class="hover">
-      <th>{index + 1}</th>
-      <td>{title}</td>
-      <td>{description}</td>
+      <th className={`${isComplete && "line-through"}`}>{index + 1}</th>
+      <td className={`${isComplete && "line-through"}`}>{title}</td>
+      <td className={`${isComplete && "line-through"}`}>{description}</td>
       <td>
         <div className="flex gap-3">
           <button

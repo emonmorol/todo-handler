@@ -23,10 +23,11 @@ const AddToList = ({ refetch }) => {
       body: JSON.stringify(todoItem),
     })
       .then((res) => res.json())
-      .then((result) => console.log(result));
-
-    reset();
-    refetch();
+      .then((result) => {
+        console.log(result);
+        refetch();
+        reset();
+      });
   };
 
   return (
