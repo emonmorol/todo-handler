@@ -1,7 +1,9 @@
+import Navbar from "./Components/Navbar";
+
 function App() {
   return (
     <div>
-      <h2>This is todo app</h2>
+      <Navbar></Navbar>
     </div>
   );
 }
