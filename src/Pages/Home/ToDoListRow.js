@@ -28,7 +28,6 @@ const ToDoListRow = ({ todo, refetch, index }) => {
           .then((result) => {
             if (result?.acknowledged) {
               refetch();
-              console.log(result);
               swal("Your To-Do Item has been deleted!", {
                 icon: "success",
               });
@@ -51,7 +50,6 @@ const ToDoListRow = ({ todo, refetch, index }) => {
       .then((result) => {
         if (result?.acknowledged) {
           refetch();
-          console.log(result);
           swal(
             "Good job!",
             `You've Completed ${title} From To-Do List`,
@@ -63,7 +61,7 @@ const ToDoListRow = ({ todo, refetch, index }) => {
   };
 
   return (
-    <tr class="hover">
+    <tr className="hover">
       <td className={`${isComplete && "line-through"}`}>{index + 1}</td>
       <td className={`${isComplete && "line-through"}`}>{title}</td>
       <td className={`${isComplete && "line-through"}`}>{description}</td>

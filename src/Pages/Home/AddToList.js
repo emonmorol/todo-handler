@@ -32,7 +32,6 @@ const AddToList = ({ refetch }) => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         refetch();
         reset();
       });
@@ -58,7 +57,7 @@ const AddToList = ({ refetch }) => {
               },
             })}
             placeholder="TODO Title here"
-            class="input input-bordered input-primary w-full"
+            className="input input-bordered input-primary w-full"
           />
           <small className="text-error ml-3">{errors.title?.message}</small>
         </div>
@@ -76,13 +75,17 @@ const AddToList = ({ refetch }) => {
               },
             })}
             placeholder="TODO description here"
-            class="textarea textarea-primary w-full"
+            className="textarea textarea-primary w-full"
           />
           <small className="text-error ml-3">
             {errors.description?.message}
           </small>
         </div>
-        <input type="submit" value="ADD" class="btn btn-block btn-primary" />
+        <input
+          type="submit"
+          value="ADD"
+          className="btn btn-block btn-primary"
+        />
       </form>
     </div>
   );

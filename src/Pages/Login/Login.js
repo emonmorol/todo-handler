@@ -26,7 +26,6 @@ const Login = () => {
   }, [user, from, navigate]);
 
   useEffect(() => {
-    console.log(user);
     fetch(`https://todo-handlar.herokuapp.com/user/${user?.email}`, {
       method: "POST",
       headers: {
@@ -46,7 +45,6 @@ const Login = () => {
   }
 
   const onSubmit = (data) => {
-    console.log(data);
     signInWithEmailAndPassword(data.email, data.password);
   };
   return (
@@ -65,7 +63,7 @@ const Login = () => {
               },
             })}
             placeholder="Your Email here"
-            class="input input-bordered input-accent w-full"
+            className="input input-bordered input-accent w-full"
           />
           <small className="text-error ml-3">{errors.email?.message}</small>
         </div>
@@ -79,14 +77,14 @@ const Login = () => {
               },
             })}
             placeholder="Your Password here"
-            class="input input-bordered input-accent w-full"
+            className="input input-bordered input-accent w-full"
           />
           <small className="text-error ml-3">{errors.password?.message}</small>
         </div>
         <p className="text-center">
           <small className="text-error ml-3">{error?.message}</small>
         </p>
-        <input type="submit" value="Sign Up" class="btn btn-block" />
+        <input type="submit" value="Sign Up" className="btn btn-block" />
       </form>
       <Social />
       <p className="flex justify-between w-full text-center font-semibold text-sm text-primary my-5">

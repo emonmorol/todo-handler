@@ -18,7 +18,6 @@ const Social = () => {
   }, [user, from, navigate]);
 
   useEffect(() => {
-    console.log(user);
     fetch(`https://todo-handlar.herokuapp.com/user/${user?.user?.email}`, {
       method: "POST",
       headers: {
@@ -39,11 +38,11 @@ const Social = () => {
 
   return (
     <>
-      <div class="divider">OR</div>
+      <div className="divider">OR</div>
       {error ? <p className="text-center text-error">{error.message}</p> : ""}
       <button
         onClick={() => signInWithGoogle()}
-        class="btn btn-block btn-outline"
+        className="btn btn-block btn-outline"
       >
         Continue With Google
       </button>

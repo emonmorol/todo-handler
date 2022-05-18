@@ -20,7 +20,6 @@ const Home = () => {
       },
     }).then((res) => res.json())
   );
-  console.log(todos);
   if (isLoading) {
     return <p className="loading">Loading...</p>;
   }

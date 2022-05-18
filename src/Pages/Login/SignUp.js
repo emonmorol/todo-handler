@@ -46,7 +46,6 @@ const SignUp = () => {
   }
 
   const onSubmit = (data) => {
-    console.log(data);
     createUserWithEmailAndPassword(data.email, data.password);
   };
 
@@ -66,7 +65,7 @@ const SignUp = () => {
               },
             })}
             placeholder="Your Name Here"
-            class="input input-bordered input-accent w-full"
+            className="input input-bordered input-accent w-full"
           />
           <small className="text-error ml-3">{errors.name?.message}</small>
         </div>
@@ -80,7 +79,7 @@ const SignUp = () => {
               },
             })}
             placeholder="Your Email here"
-            class="input input-bordered input-accent w-full"
+            className="input input-bordered input-accent w-full"
           />
           <small className="text-error ml-3">{errors.email?.message}</small>
         </div>
@@ -94,14 +93,14 @@ const SignUp = () => {
               },
             })}
             placeholder="Your Password here"
-            class="input input-bordered input-accent w-full"
+            className="input input-bordered input-accent w-full"
           />
           <small className="text-error ml-3">{errors.password?.message}</small>
         </div>
         <p className="text-center">
           <small className="text-error ml-3">{error?.message}</small>
         </p>
-        <input type="submit" value="Sign Up" class="btn btn-block" />
+        <input type="submit" value="Sign Up" className="btn btn-block" />
       </form>
       <Social />
       <p className="w-full text-center font-semibold text-sm text-primary my-5">
