@@ -35,12 +35,15 @@ const Navbar = ({ children }) => {
 
             <div class="flex-none hidden lg:block">
               <ul class="menu menu-horizontal">
-                {/* <li>
-                  <Link to="/home">Home</Link>
-                </li> */}
                 {user ? (
                   <li>
-                    <Link onClick={() => signOut(auth)} to="/login">
+                    <Link
+                      onClick={() => {
+                        signOut(auth);
+                        localStorage.removeItem("accessToken");
+                      }}
+                      to="/login"
+                    >
                       Logout
                     </Link>
                   </li>
@@ -63,12 +66,22 @@ const Navbar = ({ children }) => {
       <div class="drawer-side">
         <label for="my-drawer-3" class="drawer-overlay"></label>
         <ul class="menu p-4 overflow-y-auto w-80 bg-base-100">
-          <li>
-            <Link to="/signup">Sign Up</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
+          {user ? (
+            <li>
+              <Link onClick={() => signOut(auth)} to="/login">
+                Logout
+              </Link>
+            </li>
+          ) : (
+            <>
+              <li>
+                <Link to="/signup">Sign Up</Link>
+              </li>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </nav>

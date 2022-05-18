@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import auth from "../../firebase.init";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Social = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const [token, setToken] = useState("");
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -15,6 +16,22 @@ const Social = () => {
       navigate(from, { replace: true });
     }
   }, [user, from, navigate]);
+
+  useEffect(() => {
+    console.log(user);
+    fetch(`http://localhost:5000/user/${user?.user?.email}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        localStorage.setItem("accessToken", result.token);
+        setToken(result.token);
+      });
+  }, [user, token]);
 
   if (loading) {
     return <p>Loading...</p>;

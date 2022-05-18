@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -8,11 +8,11 @@ import Social from "./Social";
 const Login = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  const [token, setToken] = useState("");
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
   const location = useLocation();
@@ -25,6 +25,22 @@ const Login = () => {
     }
   }, [user, from, navigate]);
 
+  useEffect(() => {
+    console.log(user);
+    fetch(`http://localhost:5000/user/${user?.email}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        setToken(result.token);
+        localStorage.setItem("accessToken", result.token);
+      });
+  }, [user, token]);
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -32,7 +48,6 @@ const Login = () => {
   const onSubmit = (data) => {
     console.log(data);
     signInWithEmailAndPassword(data.email, data.password);
-    reset();
   };
   return (
     <div className="w-full lg:w-1/3 mx-auto shadow-lg p-10 rounded-2xl my-5 lg:my-20 border-2">

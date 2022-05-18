@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -8,11 +8,11 @@ import Social from "./Social";
 const SignUp = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
+  const [token, setToken] = useState("");
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
 
@@ -26,6 +26,21 @@ const SignUp = () => {
     }
   }, [user, from, navigate]);
 
+  useEffect(() => {
+    fetch(`http://localhost:5000/user/${user?.user?.email}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        localStorage.setItem("accessToken", result.token);
+        setToken(result.token);
+      });
+  }, [user, token]);
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -33,7 +48,6 @@ const SignUp = () => {
   const onSubmit = (data) => {
     console.log(data);
     createUserWithEmailAndPassword(data.email, data.password);
-    reset();
   };
 
   return (

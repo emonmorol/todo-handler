@@ -20,6 +20,9 @@ const ToDoListRow = ({ todo, refetch, index }) => {
       if (willDelete) {
         fetch(`http://localhost:5000/todoList/${id}`, {
           method: "DELETE",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
         })
           .then((res) => res.json())
           .then((result) => {
@@ -33,20 +36,6 @@ const ToDoListRow = ({ todo, refetch, index }) => {
           });
       }
     });
-
-    // const proceed = window.confirm("are you sure");
-    // if (proceed) {
-    //   fetch(`http://localhost:5000/todoList/${id}`, {
-    //     method: "DELETE",
-    //   })
-    //     .then((res) => res.json())
-    //     .then((result) => {
-    //       if (result?.acknowledged) {
-    //         refetch();
-    //         console.log(result);
-    //       }
-    //     });
-    // }
   };
   const handleCompletation = (id) => {
     setComplete(true);
@@ -54,6 +43,7 @@ const ToDoListRow = ({ todo, refetch, index }) => {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
       body: JSON.stringify({ completed: true }),
     })
@@ -64,7 +54,7 @@ const ToDoListRow = ({ todo, refetch, index }) => {
           console.log(result);
           swal(
             "Good job!",
-            "You've Completed One work From To-Do List",
+            `You've Completed ${title} From To-Do List`,
             "success"
           );
           setComplete(true);

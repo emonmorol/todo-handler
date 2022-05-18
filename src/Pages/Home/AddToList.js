@@ -1,7 +1,11 @@
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
+import auth from "../../firebase.init";
 
 const AddToList = ({ refetch }) => {
+  const [user] = useAuthState(auth);
+
   const {
     register,
     handleSubmit,
@@ -11,6 +15,7 @@ const AddToList = ({ refetch }) => {
 
   const onSubmit = (data) => {
     const todoItem = {
+      userEmail: user.email,
       title: data.title,
       description: data.description,
       isComplete: false,
@@ -19,6 +24,7 @@ const AddToList = ({ refetch }) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
       body: JSON.stringify(todoItem),
     })
