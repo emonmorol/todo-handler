@@ -4,11 +4,7 @@ import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 
 const Social = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
-  const [firebaseError, setFirebaseError] = useState("");
 
-  if (error) {
-    setFirebaseError(error.message);
-  }
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -19,6 +15,7 @@ const Social = () => {
   return (
     <>
       <div class="divider">OR</div>
+      {error ? <p className="text-center text-error">{error.message}</p> : ""}
       <button
         onClick={() => signInWithGoogle()}
         class="btn btn-block btn-outline"
