@@ -1,20 +1,26 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import AddToList from "./AddToList";
+import ToDoList from "./ToDoList";
+import { useQuery } from "react-query";
 
 const Home = () => {
   const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+    data: todos,
+    isLoading,
+    refetch,
+  } = useQuery("todoItmes", () =>
+    fetch("http://localhost:5000/todoList").then((res) => res.json())
+  );
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
-  const onSubmit = (data) => {
-    console.log(data);
-    reset();
-  };
-
-  return <div className="p-20 flex flex-row gap-5"></div>;
+  return (
+    <div className="p-20 flex flex-row gap-5">
+      <AddToList refetch={refetch} />
+      <ToDoList todos={todos} refetch={refetch} />
+    </div>
+  );
 };
 
 export default Home;
